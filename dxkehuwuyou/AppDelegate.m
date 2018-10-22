@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "MaintabbarViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -16,11 +16,20 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [IQKeyboardManager sharedManager].enable = YES;
+    [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     // Override point for customization after application launch.
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickHiddenlogin:) name:@"hidden_login" object:nil];
     return YES;
 }
-
-
+- (void)clickHiddenlogin:(NSNotification *)text {
+    MaintabbarViewController *mainVC = [[MaintabbarViewController alloc]init];
+    self.window.rootViewController = mainVC;
+    mainVC.selectedIndex = 2;
+    [self.window makeKeyWindow];
+}
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
